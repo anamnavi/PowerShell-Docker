@@ -3,23 +3,32 @@
 
 FROM centos:7.3.1611 as installer-env
 
-# args needed for accessing and downloading PowerShell tar.gz package
 ARG PS_VERSION=7.0.0-preview.1
 ARG PS_PACKAGE=powershell-${PS_VERSION}-linux-x64.tar.gz
 ARG PS_PACKAGE_URL=https://github.com/PowerShell/PowerShell/releases/download/v${PS_VERSION}/${PS_PACKAGE}
 ARG PS_INSTALL_VERSION=7-preview
 
-# define powershell install folder
+# define the folder we will be installing PowerShell to
 ENV PS_INSTALL_FOLDER=/opt/microsoft/powershell/$PS_INSTALL_VERSION
 
 # Install powershell
-# create install folder
 RUN mkdir -p ${PS_INSTALL_FOLDER} \
     # download linux powershell tar.gz and save to tmp folder
     && curl -sSL ${PS_PACKAGE_URL} -o /tmp/linux.tar.gz \
     # uncompress tar.gz
-    && tar zxf /tmp/linux.tar.gz -C ${PS_INSTALL_FOLDER} \
-    && echo ${PS_INSTALL_FOLDER}
+    && tar zxf /tmp/linux.tar.gz -C ${PS_INSTALL_FOLDER}
+
+
+
+
+# # download linux powershell tar.gz and save it (to tmp folder, to later be left behind)
+# ADD ${PS_PACKAGE_URL} /tmp/linux.tar.gz
+
+# # print url for sanity check
+# RUN echo ${PS_PACKAGE_URL}
+
+# # extract contents from the tar.gz file
+# RUN tar zxf /tmp/linux.tar.gz -C ${PS_INSTALL_FOLDER}
 
 # start new stage so that the tar.gz layers are left behind in multi-stage build
 FROM centos:7.3.1611 AS final-image
@@ -31,16 +40,16 @@ ARG PS_INSTALL_VERSION=7-preview
 # copy only files needed from the prior stage, others will be left behind
 COPY --from=installer-env ["/opt/microsoft/powershell", "/opt/microsoft/powershell"]
 
-# Redefine ENVs for Localization/Globalization for this stage
+# Define ENVs for Localization/Globalization
 ENV PS_INSTALL_VERSION=7-preview \
     PS_INSTALL_FOLDER=/opt/microsoft/powershell/${PS_INSTALL_VERSION} \
     DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false \
     LC_ALL=en_US.UTF-8 \
     LANG=en_US.UTF-8 \
-    # set a fixed location for the Module analysis cache
+    # set a fixed location for the Module analysis cache ?
     PSModuleAnalysisCachePath=/var/cache/microsoft/powershell/PSModuleAnalysisCache/ModuleAnalysisCache \
     POWERSHELL_DISTRIBUTION_CHANNEL=PSDocker-CentOS-7.3.1611 \
-    # to resolve 'couldn't find valid icu' issue
+    # to resolve couldn't find valid icu issue
     DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
 
 
@@ -82,3 +91,33 @@ RUN yum install -y epel-release \
 # Use PowerShell as the default shell
 # Use array to avoid Docker prepending /bin/sh -c
 CMD ["pwsh-preview"]
+
+
+
+
+
+
+
+
+
+
+
+
+# # Download the Linux tar.gz and save it
+# ADD ${PS_PACKAGE_URL} ${PS_INSTALL_FOLDER}/linux.tar.gz
+
+# RUN echo ${PS_PACKAGE_URL}
+
+# # unzip the linux tar.gz
+# RUN tar zxf ${PS_INSTALL_FOLDER}/linux.tar.gz -C ${PS_INSTALL_FOLDER}
+
+# # remove the tar.gz file we extracted out in last step/layer?
+# RUN rm ${PS_INSTALL_FOLDER}/linux.tar.gz
+
+
+#
+# # Create the install folder, get the linux tar.gz, unzip it
+# RUN mkdir -p ${PS_INSTALL_FOLDER} \
+#     && curl ${PS_PACKAGE_URL} -O . \
+#     | tar -zxf ./
+
