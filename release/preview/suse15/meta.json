@@ -1,0 +1,17 @@
+{
+    "IsLinux" : true,
+    "UseLinuxVersion": false,
+    "PackageFormat": "powershell-${PS_VERSION}-linux-x64.tar.gz",
+    "osVersion": "SUSE 15",
+    "tagTemplates": [
+        "#psversion#-suse-#shorttag#-#fulltag#",
+        "preview-suse-#shorttag#"
+    ],
+    "shortTags": [
+        {"Tag": "15"}
+    ],
+    "SubImage": "test-deps",
+    "TestProperties": {
+        "size": 377
+    }
+}
