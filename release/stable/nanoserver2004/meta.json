@@ -2,15 +2,13 @@
     "IsLinux": false,
     "PackageFormat": "PowerShell-${PS_VERSION}-win-x64.zip",
     "osVersion": "Nano Server, version 2004",
+    "tagTemplates": [
+        "nanoserver-#shorttag#"
+    ],
     "shortTags": [
         {
             "Tag": "2004"
         }
-    ],
-    "tagTemplates": [
-        "#psversion#-nanoserver-#shorttag#",
-        "#psversion#-nanoserver-2004-#fulltag#",
-        "nanoserver-#shorttag#"
     ],
     "manifestLists": [
         "nanoserver"

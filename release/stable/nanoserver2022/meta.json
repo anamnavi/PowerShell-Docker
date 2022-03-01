@@ -2,15 +2,13 @@
     "IsLinux": false,
     "PackageFormat": "PowerShell-${PS_VERSION}-win-x64.zip",
     "osVersion": "Nano Server, LTSC 2022",
+    "tagTemplates": [
+        "nanoserver-#shorttag#"
+    ],
     "shortTags": [
         {
             "Tag": "ltsc2022"
         }
-    ],
-    "tagTemplates": [
-        "#psversion#-nanoserver-#shorttag#",
-        "#psversion#-nanoserver-#shorttag#-#fulltag#",
-        "nanoserver-#shorttag#"
     ],
     "manifestLists": [
         "nanoserver"
