@@ -1,0 +1,16 @@
+{
+    "IsLinux" : true,
+    "PackageFormat": "powershell-${PS_VERSION}-linux-arm64.tar.gz",
+    "SkipGssNtlmSspTests": true,
+    "osVersion": "Mariner 2.0 ARM 64v7",
+    "shortTags": [
+        {"Tag": "2.0"}
+    ],
+    "ShortDistroName": "mariner",
+    "SubImage": "test-deps",
+    "TestProperties": {
+        "size": 387
+    },
+    "EndOfLife": "2022-10-14",
+    "DistributionState": "Validated"
+}
