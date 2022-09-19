@@ -535,7 +535,7 @@ function Invoke-DockerBuild
         {
             $buildArgList += @(
                 "--build-arg"
-                "$argName=$value"
+                "`"$argName=$value`""
             )
         }
     }
