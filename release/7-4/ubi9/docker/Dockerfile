@@ -23,6 +23,7 @@ RUN --mount=type=cache,target=/var/cache/yum,rw \
       openssl \
       glibc-locale-source \
       glibc-langpack-en \
+      glib2-2.68.4-14.el9_4.1.x86_64 \
       libicu \
     && yum clean all
 RUN --mount=type=cache,target=/var/cache/yum,rw \

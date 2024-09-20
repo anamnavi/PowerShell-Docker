@@ -55,6 +55,7 @@ RUN apk add --no-cache \
   libgcc \
   libintl \
   libssl1.1 \
+  openssl=3.0.15-r0 \
   libstdc++ \
   tzdata \
   userspace-rcu \

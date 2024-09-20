@@ -59,6 +59,7 @@ RUN --mount=from=installer-env,target=/mnt/pwsh,source=/tmp \
         liblttng-ust1 \
     # PowerShell remoting over SSH dependencies
         openssh-client \
+        openssl=3.0.2-0ubuntu1.18 \
     && apt-get dist-upgrade -y \
     && locale-gen $LANG && update-locale \
     # intialize powershell module cache

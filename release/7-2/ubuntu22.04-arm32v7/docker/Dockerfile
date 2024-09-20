@@ -58,7 +58,7 @@ FROM --platform=linux/arm/v7 ubuntu:jammy AS final-image
 
     RUN \
     apt-get update \
-    && apt-get install --no-install-recommends ca-certificates libunwind8 libssl3 libicu70 less --yes
+    && apt-get install --no-install-recommends ca-certificates libunwind8 libssl3 libicu70 less openssl=3.0.2-0ubuntu1.18 --yes
 
         # Give all user execute permissions and remove write permissions for others
     RUN chmod a+x,o-w ${PS_INSTALL_FOLDER}/pwsh \

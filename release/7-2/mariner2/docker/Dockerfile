@@ -46,6 +46,7 @@ RUN --mount=type=cache,target=/var/cache/tdnf \
     openssh-clients \
     ca-certificates \
     dotnet-runtime-6.0 \
+    krb5-1.21.3-2.cm2.x86_64 \
     # upgrade packages
     && tdnf upgrade -y \
     # clean cached data

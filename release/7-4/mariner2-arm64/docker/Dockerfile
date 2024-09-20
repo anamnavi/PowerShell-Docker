@@ -56,6 +56,7 @@ FROM setup-tdnf-repa AS powershell
         # required for SSH
         openssh-clients \
         dotnet-runtime-8.0 \
+        krb5-1.21.3-2.cm2.aarch64 \
         ca-certificates
 
     # Install dependencies and clean up
